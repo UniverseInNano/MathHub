@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5th Grade Math Adventure!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Scroll padding added to account for the fixed navbar height */
+            scroll-padding-top: 6rem; 
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .place-value-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0.5rem;
+            border-right: 1px solid #ddd;
+            min-width: 60px;
+        }
+        .decimal-separator {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #FFD166;
+            padding: 0 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-[#073B4C] text-gray-800">
+
+    <!-- NEW: Fixed Navigation Bar -->
+    <nav class="sticky top-0 z-50 bg-[#073B4C] bg-opacity-95 shadow-lg backdrop-blur-sm border-b-4 border-[#FFD166]">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="text-xl font-bold text-[#FFD166]">5th Grade Math HQ</div>
+            <div class="space-x-4 flex">
+                <a href="#mission1" class="nav-link text-white hover:text-[#06D6A0] transition duration-200 font-semibold text-sm md:text-base">Fractions</a>
+                <a href="#mission2" class="nav-link text-white hover:text-[#FFD166] transition duration-200 font-semibold text-sm md:text-base">Decimals</a>
+                <a href="#mission3" class="nav-link text-white hover:text-[#FF6B6B] transition duration-200 font-semibold text-sm md:text-base">Volume</a>
+                <a href="#vocab" class="nav-link text-white hover:text-[#118AB2] transition duration-200 font-semibold text-sm md:text-base">Vocab Tool</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-12 pt-8">
+            <h1 class="text-4xl md:text-6xl font-black text-[#FFD166] mb-2">Welcome to 5th Grade Math!</h1>
+            <p class="text-lg md:text-xl text-white">Your Year of Transformation!</p>
+        </header>
+
+        <main>
+            <section class="mb-16">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Your Three Critical Missions</h2>
+                    <p class="text-white text-opacity-90 mb-8">Get ready to become a Master Mathematician! This year, you'll jump from simple arithmetic to exploring new number systems and even 3D space. Your mission is to conquer these three big challenges.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-lg shadow-2xl p-6 text-center transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-6xl mb-4">🥧</div>
+                        <h3 class="text-2xl font-bold text-[#118AB2] mb-2">1. Mastering Fractions</h3>
+                        <p>Develop fluency with fraction operations and introduce multiplication and division concepts.</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-2xl p-6 text-center transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-6xl mb-4">💰</div>
+                        <h3 class="text-2xl font-bold text-[#06D6A0] mb-2">2. Conquering Decimals</h3>
+                        <p>Understand place value to the thousandths and perform all four operations with decimals.</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-2xl p-6 text-center transform hover:scale-105 transition-transform duration-300">
+                        <div class="text-6xl mb-4">🧊</div>
+                        <h3 class="text-2xl font-bold text-[#FF6B6B] mb-2">3. Exploring Volume</h3>
+                        <p>Understand volume as a measure of 3D space and use formulas to calculate it.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mission 1: Fractions (Added ID for scrolling) -->
+            <section id="mission1" class="pt-16 mb-16 bg-white rounded-lg shadow-xl p-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h2 class="text-3xl font-bold text-[#118AB2] mb-4">Mission 1: Mastering Fractions</h2>
+                        <p class="mb-4">You're already great at adding and subtracting fractions. This year, we'll master working with unlike denominators and even learn how to multiply and divide fractions. This chart shows how your time will be spent on this mission.</p>
+                        <p>A big part of this mission is understanding that multiplying fractions is like finding the area of a smaller rectangle, and dividing is about seeing how many times one piece can fit into another.</p>
+                        
+                        <!-- GEMINI FEATURE: PRACTICE PROBLEM GENERATOR -->
+                        <div class="mt-6 p-4 bg-gray-100 rounded-lg border-l-4 border-[#118AB2]">
+                            <h3 class="text-xl font-semibold mb-3">✨ Fraction Problem Generator</h3>
+                            <p class="text-sm mb-3">Click below to generate a new 5th-grade level word problem focusing on fraction operations.</p>
+                            <button id="generateFractionProblem" class="w-full bg-[#118AB2] hover:bg-opacity-90 text-white font-bold py-2 px-4 rounded-lg transition duration-200 shadow-md">
+                                Generate New Problem
+                            </button>
+                            <div id="fractionProblemOutput" class="mt-4 p-3 bg-white border border-gray-300 rounded-lg text-sm hidden">
+                                <p id="problemText" class="whitespace-pre-wrap"></p>
+                            </div>
+                            <div id="problemLoading" class="mt-4 text-center text-[#118AB2] font-semibold hidden">Loading...</div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="fractionsChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mission 2: Decimals (Added ID for scrolling) -->
+            <section id="mission2" class="pt-16 mb-16 bg-white rounded-lg shadow-xl p-8">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+                     <div class="lg:col-span-1 md:order-1">
+                        <h2 class="text-3xl font-bold text-[#06D6A0] mb-4">Mission 2: Conquering Decimals</h2>
+                        <p class="mb-4">We're zooming into the world of numbers smaller than one! Understanding place value is the key. You will learn to master all four operations with numbers up to the hundredths and thousandths place.</p>
+                        <p>The chart shows how each place value is 10 times smaller than the one before it, which is crucial for estimation and precise calculations.</p>
+                    </div>
+                    <div class="lg:col-span-2 md:order-2">
+                        <h3 class="text-xl font-semibold mb-4 text-center">Place Value: The Power of 10</h3>
+                        <div class="flex justify-center border border-gray-300 rounded-lg overflow-hidden shadow-md bg-gray-50">
+                            <div class="place-value-box border-l-0">
+                                <span class="text-xs text-gray-500">Value</span>
+                                <span class="font-bold text-lg">100</span>
+                                <span class="text-xs font-semibold mt-1 text-[#118AB2]">Hundreds</span>
+                            </div>
+                            <div class="place-value-box">
+                                <span class="text-xs text-gray-500">Value</span>
+                                <span class="font-bold text-lg">10</span>
+                                <span class="text-xs font-semibold mt-1 text-[#118AB2]">Tens</span>
+                            </div>
+                            <div class="place-value-box">
+                                <span class="text-xs text-gray-500">Value</span>
+                                <span class="font-bold text-lg">1</span>
+                                <span class="text-xs font-semibold mt-1 text-[#118AB2]">Ones</span>
+                            </div>
+                            <div class="decimal-separator border-r-0">.</div>
+                            <div class="place-value-box border-r-0">
+                                <span class="text-xs text-gray-500">Value</span>
+                                <span class="font-bold text-lg">0.1</span>
+                                <span class="text-xs font-semibold mt-1 text-[#FFD166]">Tenths</span>
+                            </div>
+                            <div class="place-value-box border-r-0">
+                                <span class="text-xs text-gray-500">Value</span>
+                                <span class="font-bold text-lg">0.01</span>
+                                <span class="text-xs font-semibold mt-1 text-[#FFD166]">Hundredths</span>
+                            </div>
+                            <div class="place-value-box border-r-0">
+                                <span class="text-xs text-gray-500">Value</span>
+                                <span class="font-bold text-lg">0.001</span>
+                                <span class="text-xs font-semibold mt-1 text-[#FFD166]">Thousandths</span>
+                            </div>
+                        </div>
+                        <div class="chart-container mt-6">
+                            <canvas id="decimalsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mission 3: Volume (Added ID for scrolling) -->
+            <section id="mission3" class="pt-16 mb-16 bg-white rounded-lg shadow-xl p-8">
+                <div class="text-center">
+                     <h2 class="text-3xl font-bold text-[#FF6B6B] mb-8">Mission 3: Exploring Volume</h2>
+                     <p class="max-w-3xl mx-auto mb-8">This year, we move from flat 2D shapes into the real world of 3D space! Volume is the amount of space an object takes up. We learn to measure it by seeing how many tiny cubes can fit inside an object.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="flex flex-col items-center justify-center p-6 bg-gray-50 rounded-lg">
+                        <h3 class="text-xl font-semibold mb-4 text-[#073B4C]">How We Build Volume (Layer by Layer)</h3>
+                        <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
+                            <div class="flex flex-col items-center">
+                                <div class="grid grid-cols-2 gap-px p-0.5 bg-gray-200 border border-gray-400">
+                                    <div class="w-8 h-8 bg-white border border-[#118AB2]"></div>
+                                    <div class="w-8 h-8 bg-white border border-[#118AB2]"></div>
+                                    <div class="w-8 h-8 bg-white border border-[#118AB2]"></div>
+                                    <div class="w-8 h-8 bg-white border border-[#118AB2]"></div>
+                                </div>
+                                <p class="text-xs font-semibold mt-2 text-[#118AB2]">Base Area (L x W)</p>
+                            </div>
+                            <span class="text-3xl text-[#073B4C] font-black transform rotate-90 md:rotate-0">➡️</span>
+                            <div class="flex flex-col items-center">
+                                <div class="relative w-20 h-20 bg-gray-300 rounded-sm shadow-lg border-t-4 border-l-4 border-gray-400">
+                                    <div class="absolute inset-0 border border-dashed border-[#FF6B6B] transform translate-x-1 translate-y-1"></div>
+                                    <div class="absolute inset-0 border border-dashed border-[#FF6B6B] transform translate-x-2 translate-y-2"></div>
+                                    <div class="absolute inset-0 border-2 border-[#FF6B6B] bg-[#FF6B6B] bg-opacity-40 text-sm flex items-center justify-center font-bold text-white p-1">V</div>
+                                </div>
+                                <p class="text-xs font-semibold mt-2 text-[#FF6B6B]">Volume (V = Base x H)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center p-6 bg-gray-50 rounded-lg">
+                        <h3 class="text-xl font-semibold mb-4">The Secret Formula</h3>
+                        <div class="bg-[#FF6B6B] text-white p-6 rounded-lg shadow-inner">
+                            <p class="text-2xl md:text-4xl font-black tracking-wider">V = l × w × h</p>
+                            <p class="mt-2">(Volume = length × width × height)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- GEMINI FEATURE: VOCABULARY HELPER (TTS) (Added ID for scrolling) -->
+            <section id="vocab" class="pt-16 mb-16 bg-[#FFD166] rounded-lg shadow-xl p-8">
+                 <h2 class="text-3xl font-bold text-[#073B4C] mb-4 text-center">✨ Math Vocabulary Helper (TTS)</h2>
+                 <p class="max-w-3xl mx-auto text-center mb-6">Need help with a tricky term like **Denominator** or **Quotient**? Type it in to get a simple definition and hear it pronounced!</p>
+                 <div class="max-w-xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+                    <label for="mathTerm" class="block text-lg font-semibold mb-2 text-[#073B4C]">Enter Math Term:</label>
+                    <input type="text" id="mathTerm" value="Numerator" placeholder="e.g., Denominator, Volume, Quotient" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#118AB2] mb-4">
+                    <button id="lookupTerm" class="w-full bg-[#06D6A0] hover:bg-opacity-90 text-white font-bold py-3 px-4 rounded-lg transition duration-200 shadow-md">
+                        Get Definition & Play Audio
+                    </button>
+                    
+                    <div id="ttsOutput" class="mt-6 p-4 bg-gray-100 border border-gray-300 rounded-lg hidden">
+                        <div id="ttsLoading" class="text-center text-[#073B4C] font-semibold hidden">Loading definition and audio...</div>
+                        <p id="ttsDefinition" class="text-gray-800 mb-3"></p>
+                        <audio id="ttsAudioPlayer" controls class="w-full"></audio>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-12 mb-4">
+            <p class="text-white text-opacity-80">An exciting year of mathematical transformation awaits!</p>
+        </footer>
+
+    </div>
+
+    <script>
+        const apiKey = "";
+        const LLM_MODEL = "gemini-2.5-flash-preview-05-20";
+        const TTS_MODEL = "gemini-2.5-flash-preview-tts";
+
+        // --- NEW: Smooth Scrolling Functionality ---
+        document.querySelectorAll('a.nav-link[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // --- Utility Functions for TTS (PCM to WAV) ---
+        function base64ToArrayBuffer(base64) {
+            const binaryString = window.atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        function pcmToWav(pcm16, sampleRate = 24000) {
+            const numChannels = 1;
+            const numSamples = pcm16.length;
+            const buffer = new ArrayBuffer(44 + numSamples * 2);
+            const view = new DataView(buffer);
+
+            // Write WAV header
+            let offset = 0;
+            const writeString = (str) => {
+                for (let i = 0; i < str.length; i++) view.setUint8(offset++, str.charCodeAt(i));
+            };
+            const writeUint32 = (val) => { view.setUint32(offset, val, true); offset += 4; };
+            const writeUint16 = (val) => { view.setUint16(offset, val, true); offset += 2; };
+
+            writeString('RIFF'); // Chunk ID
+            writeUint32(36 + numSamples * 2); // Chunk size
+            writeString('WAVE'); // Format
+            writeString('fmt '); // Sub-chunk 1 ID
+            writeUint32(16); // Sub-chunk 1 size (16 for PCM)
+            writeUint16(1); // Audio format (1 for PCM)
+            writeUint16(numChannels); // Num Channels
+            writeUint32(sampleRate); // Sample Rate
+            writeUint32(sampleRate * numChannels * 2); // Byte Rate
+            writeUint16(numChannels * 2); // Block Align
+            writeUint16(16); // Bits per sample
+            writeString('data'); // Sub-chunk 2 ID
+            writeUint32(numSamples * 2); // Sub-chunk 2 size
+
+            // Write PCM data
+            for (let i = 0; i < numSamples; i++) {
+                view.setInt16(offset, pcm16[i], true);
+                offset += 2;
+            }
+
+            return new Blob([view], { type: 'audio/wav' });
+        }
+
+
+        // --- Chart Initialization ---
+
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            } else {
+                return label;
+            }
+        };
+
+        const fractionsCtx = document.getElementById('fractionsChart').getContext('2d');
+        new Chart(fractionsCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Adding & Subtracting', 'Multiplying Fractions', 'Dividing Fractions'],
+                datasets: [{
+                    label: 'Focus on Fractions',
+                    data: [45, 35, 20],
+                    backgroundColor: [
+                        '#118AB2',
+                        '#06D6A0',
+                        '#FFD166'
+                    ],
+                    borderColor: '#FFFFFF',
+                    borderWidth: 4,
+                    hoverOffset: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                         labels: {
+                            color: '#073B4C'
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                           title: tooltipTitleCallback
+                        }
+                    }
+                }
+            }
+        });
+
+        const decimalsCtx = document.getElementById('decimalsChart').getContext('2d');
+        new Chart(decimalsCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Tenths (0.1)', 'Hundredths (0.01)', 'Thousandths (0.001)'],
+                datasets: [{
+                    label: 'Value of Decimal Places',
+                    data: [100, 10, 1],
+                    backgroundColor: [
+                        '#06D6A0',
+                        '#FFD166',
+                        '#FF6B6B'
+                    ],
+                    borderRadius: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: {
+                           display: false
+                        },
+                         ticks: {
+                            color: '#073B4C'
+                        }
+                    },
+                    y: {
+                         grid: {
+                           display: false
+                        },
+                         ticks: {
+                            color: '#073B4C'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                       display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback
+                        }
+                    }
+                }
+            }
+        });
+
+        // --- LLM Feature 1: Fraction Problem Generator ---
+
+        const problemButton = document.getElementById('generateFractionProblem');
+        const problemOutputDiv = document.getElementById('fractionProblemOutput');
+        const problemTextP = document.getElementById('problemText');
+        const problemLoadingDiv = document.getElementById('problemLoading');
+
+        async function generatePracticeProblem(retries = 3, delay = 1000) {
+            problemOutputDiv.classList.add('hidden');
+            problemLoadingDiv.classList.remove('hidden');
+
+            const systemPrompt = "You are a friendly 5th-grade math teacher. Generate a single, unique, interesting word problem that requires the student to perform at least two fraction operations (addition, subtraction, multiplication, or division) including mixed numbers or unlike denominators. Do not include the answer or steps, just the question. Keep the language simple and engaging.";
+            const userQuery = "Generate a fraction word problem suitable for a 5th grader focusing on two operations with mixed numbers.";
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+            };
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${LLM_MODEL}:generateContent?key=${apiKey}`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    if (response.status === 429 && retries > 0) {
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        return generatePracticeProblem(retries - 1, delay * 2);
+                    }
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                const text = result.candidates?.[0]?.content?.parts?.[0]?.text || "Could not generate problem. Try again.";
+                
+                problemTextP.textContent = text;
+                problemOutputDiv.classList.remove('hidden');
+
+            } catch (error) {
+                console.error("LLM API Error:", error);
+                problemTextP.textContent = "Error generating problem. Please try again later.";
+                problemOutputDiv.classList.remove('hidden');
+            } finally {
+                problemLoadingDiv.classList.add('hidden');
+            }
+        }
+
+        problemButton.addEventListener('click', () => generatePracticeProblem());
+
+
+        // --- LLM Feature 2: Vocabulary Helper (LLM + TTS) ---
+
+        const termInput = document.getElementById('mathTerm');
+        const lookupButton = document.getElementById('lookupTerm');
+        const ttsOutputDiv = document.getElementById('ttsOutput');
+        const ttsLoadingDiv = document.getElementById('ttsLoading');
+        const ttsDefinitionP = document.getElementById('ttsDefinition');
+        const ttsAudioPlayer = document.getElementById('ttsAudioPlayer');
+
+        async function generateDefinitionAndAudio(term, retries = 3, delay = 1000) {
+            if (!term.trim()) return;
+
+            ttsOutputDiv.classList.remove('hidden');
+            ttsLoadingDiv.classList.remove('hidden');
+            ttsDefinitionP.textContent = "";
+            ttsAudioPlayer.src = "";
+
+            const systemPrompt = "You are an expert math tutor for 5th graders. Provide a simple, concise, and easy-to-understand definition for the given math term. Do not include any extra context or conversational greetings.";
+            const userQuery = `Define the math term: ${term}`;
+
+            // 1. Generate Definition
+            const llmPayload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+            };
+            const llmApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${LLM_MODEL}:generateContent?key=${apiKey}`;
+            
+            let definitionText = "";
+
+            try {
+                const llmResponse = await fetch(llmApiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(llmPayload)
+                });
+                
+                if (!llmResponse.ok) throw new Error(`LLM HTTP error! status: ${llmResponse.status}`);
+                
+                const llmResult = await llmResponse.json();
+                definitionText = llmResult.candidates?.[0]?.content?.parts?.[0]?.text || `Definition for "${term}" is unavailable.`;
+                ttsDefinitionP.textContent = definitionText;
+                
+            } catch (error) {
+                console.error("Definition LLM API Error:", error);
+                ttsDefinitionP.textContent = `Error getting definition for "${term}".`;
+                ttsLoadingDiv.classList.add('hidden');
+                return;
+            }
+
+
+            // 2. Generate TTS Audio using the generated definition
+            const ttsPayload = {
+                contents: [{ parts: [{ text: definitionText }] }],
+                generationConfig: {
+                    responseModalities: ["AUDIO"],
+                    speechConfig: {
+                        voiceConfig: {
+                            prebuiltVoiceConfig: { voiceName: "Puck" } 
+                        }
+                    }
+                },
+                model: TTS_MODEL
+            };
+            const ttsApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${TTS_MODEL}:generateContent?key=${apiKey}`;
+
+            try {
+                const ttsResponse = await fetch(ttsApiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(ttsPayload)
+                });
+
+                if (!ttsResponse.ok) {
+                    if (ttsResponse.status === 429 && retries > 0) {
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        return generateDefinitionAndAudio(term, retries - 1, delay * 2);
+                    }
+                    throw new Error(`TTS HTTP error! status: ${ttsResponse.status}`);
+                }
+
+                const ttsResult = await ttsResponse.json();
+                const part = ttsResult?.candidates?.[0]?.content?.parts?.[0];
+                const audioData = part?.inlineData?.data;
+
+                if (audioData) {
+                    const sampleRate = 24000; 
+                    const pcmData = base64ToArrayBuffer(audioData);
+                    const pcm16 = new Int16Array(pcmData);
+                    const wavBlob = pcmToWav(pcm16, sampleRate);
+                    const audioUrl = URL.createObjectURL(wavBlob);
+                    ttsAudioPlayer.src = audioUrl;
+                } else {
+                    console.error("TTS output missing audio data.");
+                    ttsDefinitionP.textContent = definitionText + "\n\n(Error: Audio generation failed.)";
+                }
+                
+            } catch (error) {
+                console.error("TTS API Error:", error);
+                ttsDefinitionP.textContent = definitionText + "\n\n(Error: Audio generation failed.)";
+            } finally {
+                ttsLoadingDiv.classList.add('hidden');
+            }
+        }
+
+        lookupButton.addEventListener('click', () => {
+            const term = termInput.value.trim();
+            generateDefinitionAndAudio(term);
+        });
+
+    </script>
+
+</body>
+</html>
